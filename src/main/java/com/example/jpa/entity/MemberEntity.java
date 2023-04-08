@@ -1,5 +1,6 @@
 package com.example.jpa.entity;
 
+import com.example.jpa.dto.MemberDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +23,13 @@ public class MemberEntity {
 
     @Column
     private String memberName;
+
+    public static MemberEntity toMemberEntity(MemberDto memberDto) {
+        MemberEntity memberEntity = new MemberEntity();
+        // dto에 있는 값을 entity로 넘기는 과정
+        memberEntity.setMemberEmail(memberDto.getMemberEmail());
+        memberEntity.setMemberPassword(memberDto.getMemberPassword());
+        memberEntity.setMemberName(memberDto.getMemberName());
+        return memberEntity;
+    }
 }
