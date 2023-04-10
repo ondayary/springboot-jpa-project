@@ -32,6 +32,13 @@ public class MemberController {
         return "login";
     }
 
+    // 로그인 페이지 출력 요청
+    @GetMapping("member/login")
+    public String loginForm() {
+        return "login";
+    }
+
+    // login 정보를 받아주는 메서드
     @PostMapping("/member/login")
     public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
         MemberDto loginResult = memberService.login(memberDto);
