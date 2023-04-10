@@ -27,6 +27,18 @@ public class MemberController {
         // name과 dto의 필드가 동일하다면 dto객체를 만들어서 객체의 setter메서드를 호출해 알아서 담아줌
         System.out.println("memberDto = " + memberDto);
         memberService.join(memberDto);
-        return "index";
+        return "login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDto memberDto) {
+        MemberDto loginResult = memberService.login(memberDto);
+        if (loginResult != null) {
+            // login 성공
+            return "main";
+        } else {
+            // login 실패
+            return "login";
+        }
     }
 }
