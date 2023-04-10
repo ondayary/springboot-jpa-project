@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -31,10 +33,11 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public String login(@ModelAttribute MemberDto memberDto) {
+    public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
         MemberDto loginResult = memberService.login(memberDto);
         if (loginResult != null) {
             // login 성공
+            session.setAttribute("loginEmail", loginResult.getMemberEmail()); // 로그인한 이메일 정보를 session에 담아줌
             return "main";
         } else {
             // login 실패
