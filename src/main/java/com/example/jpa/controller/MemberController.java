@@ -94,4 +94,10 @@ public class MemberController {
         // 삭제처리하고 list페이지로 가려했으나 list로 갈 때에는 model에 데이터를 담아서 가기 때문에
         // redirect로 list페이지로 이동한다.
     }
+
+    @GetMapping("/member/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate(); // session을 무효화함
+        return "index";
+    }
 }
