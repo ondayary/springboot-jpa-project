@@ -70,4 +70,20 @@ public class MemberController {
         return "detailList";
     }
 
+    // 회원 정보 수정페이지 출력 요청
+    @GetMapping("/member/update")
+    public String updateForm(HttpSession httpSession, Model model) {
+        String myEmail = (String) httpSession.getAttribute("loginEmail"); // 담을 때는 set, 가져올 때는 get
+        MemberDto memberDto = memberService.updateForm(myEmail);
+        model.addAttribute("updateMember", memberDto);
+        return "update";
+    }
+
+    @PostMapping("/member/update")
+    public String update(@ModelAttribute MemberDto memberDto) {
+        memberService.update(memberDto);
+        return "redirect:/member/" + memberDto.getId();
+        // 넘겨받은 Dto의 아이디
+        // 수정이 완료된 나의 상세페이지를 띄워줌
+    }
 }
