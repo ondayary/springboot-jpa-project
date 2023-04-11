@@ -60,4 +60,17 @@ public class MemberService {
         }
         return memberDtoList;
     }
+
+    public MemberDto findById(Long id) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+        // 하나를 조회할 때는 기본적으로 Optional로 감싸준다.
+
+        if (optionalMemberEntity.isPresent()) {
+            return MemberDto.toMemberDto(optionalMemberEntity.get());
+            // Optional 객체에서 get으로 일단 한겹 벗겨야 Entity 객체가 보이고
+            // Entity 객체를 Dto로 변환한 결과를 Controller로 리턴
+        } else {
+            return null;
+        }
+    }
 }
