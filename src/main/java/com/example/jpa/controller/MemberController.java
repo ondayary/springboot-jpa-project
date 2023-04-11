@@ -86,4 +86,12 @@ public class MemberController {
         // 넘겨받은 Dto의 아이디
         // 수정이 완료된 나의 상세페이지를 띄워줌
     }
+
+    @GetMapping("/member/delete/{id}")
+    public String deleteById(@PathVariable Long id) {
+        memberService.deleteById(id);
+        return "redirect:/member/";
+        // 삭제처리하고 list페이지로 가려했으나 list로 갈 때에는 model에 데이터를 담아서 가기 때문에
+        // redirect로 list페이지로 이동한다.
+    }
 }
