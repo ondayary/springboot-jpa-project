@@ -6,6 +6,8 @@ import com.example.jpa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service // Spring Bean으로 등록
@@ -44,5 +46,18 @@ public class MemberService {
             // 조회 결과가 없다(해당 이메일을 가진 회원 정보가 없다)
             return null;
         }
+    }
+
+    public List<MemberDto> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        // repository와 관련된 것은 무조건 entity 객체로 주고 받음
+        // EntityList객체를 DtoList로 변환해서 Controller로 보내줘야 함
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        // Entity가 여러개 담긴 List객체를 Dto가 여러개 담긴 List객체로 옮겨담는 것
+        // 그래서 memberEntityList를 하나하나 memberDtoList에 옮겨담는 과정이 필요 -> for문
+        for (MemberEntity memberEntity : memberEntityList) {
+            memberDtoList.add(MemberDto.toMemberDto(memberEntity));
+        }
+        return memberDtoList;
     }
 }
