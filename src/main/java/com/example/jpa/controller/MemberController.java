@@ -106,6 +106,9 @@ public class MemberController {
     @PostMapping("/member/email-check")
     public String emailCheck(@RequestParam("memberEmail") String memberEmail) {
         System.out.println("memberEmail: " + memberEmail);
-        return "체크완료";
+        String checkResult = memberService.emailCheck(memberEmail);
+        return checkResult;
+        // checkResult로 return 해도 되는 이유
+        // service에서 사용이 가능하면 ok, 아니라면 null 값을 반환하기로 했기 때문
     }
 }
