@@ -100,4 +100,12 @@ public class MemberController {
         httpSession.invalidate(); // session을 무효화함
         return "index";
     }
+
+    // 이메일 중복 체크
+    @ResponseBody
+    @PostMapping("/member/email-check")
+    public String emailCheck(@RequestParam("memberEmail") String memberEmail) {
+        System.out.println("memberEmail: " + memberEmail);
+        return "체크완료";
+    }
 }

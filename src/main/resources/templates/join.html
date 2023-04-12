@@ -3,15 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>join</title>
+    <!-- jquery cdn -->
+    <script
+            src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- action 속성 : form에 작성한 데이터를 어디로 보낼지 지정 -->
     <form action="/member/join" method="post">
         <!-- name 속성 : 서버로 전송할 때 변수 이름의 역할 -->
-        이메일 : <input type="text" name="memberEmail"><br>
+        이메일: <input type="text" name="memberEmail" id="memberEmail" onblur="emailCheck()"><br>
+                <!-- 입력한 이메일 값을 가져오기 위해 id 속성을 줌
+                     id 속성의 특징: 하나만 쓸 수 있음 즉, 중복 허용 불가
+                     onkeyup: 이벤트 속성, 키보드를 하나씩 입력시 함수 호출
+                     onblur: 유저가 포커스된 텍스트 인풋의 바깥 영역을 클릭했을 때 호출 -->
         비밀번호 : <input type="password" name="memberPassword"><br>
         이름 : <input type="text" name="memberName"><br>
         <input type="submit" value="회원가입">
     </form>
 </body>
+<script th:inline="javascript">
+    const emailCheck = () => {
+        const email = document.getElementById("memberEmail").value;
+        console.log("입력값: ", email);
+        $.ajax({
+            // 요청방식: post, url: "/member/email-check", 데이터: 이메일
+            type: "post",
+            url: "/member/email-check",
+            data: {
+                "memberEmail": email // "전송되는 파라미터 이름": 담겨가는 데이터
+            },
+            success: function (res) {
+                console.log("요청성공", res);
+            },
+            error: function(err) {
+                console.log("에러발생", err);
+            }
+        });
+    }
+</script>
 </html>
