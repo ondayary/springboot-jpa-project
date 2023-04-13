@@ -26,6 +26,6 @@ public class BoardController {
     public String write(@ModelAttribute BoardDto boardDto) { // @RequestParam으로도 가능하지만 ModelAttribute로 진행
         System.out.println("boardDto = " + boardDto); // soutp + tab
         boardService.write(boardDto);
-        return null;
+        return "index";
     }
 }
