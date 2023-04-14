@@ -19,7 +19,7 @@ public class MemberController {
     // 회원가입 페이지 출력 요청
     @GetMapping("/member/join")
     public String joinForm() {
-        return "join";
+        return "members/join";
     }
 
     // join 정보를 받아주는 메서드
@@ -28,13 +28,13 @@ public class MemberController {
         // name과 dto의 필드가 동일하다면 dto객체를 만들어서 객체의 setter메서드를 호출해 알아서 담아줌
         System.out.println("memberDto = " + memberDto);
         memberService.join(memberDto);
-        return "login";
+        return "members/login";
     }
 
     // 로그인 페이지 출력 요청
     @GetMapping("member/login")
     public String loginForm() {
-        return "login";
+        return "members/login";
     }
 
     // login 정보를 받아주는 메서드
@@ -47,7 +47,7 @@ public class MemberController {
             return "main";
         } else {
             // login 실패
-            return "login";
+            return "members/login";
         }
     }
 
@@ -58,7 +58,7 @@ public class MemberController {
         List<MemberDto> memberDtoList = memberService.findAll();
         // 어떠한 html로 가져갈 데이터가 있다면 model사용
         model.addAttribute("memberList", memberDtoList);
-        return "list";
+        return "members/list";
     }
 
     // 회원 상세정보 페이지 출력 요청
@@ -67,7 +67,7 @@ public class MemberController {
         // query string: RequestParam, rest api: PathVariable
         MemberDto memberDto = memberService.findById(id); // 1명이니까 Dto 타입으로 받아줌
         model.addAttribute("member", memberDto);
-        return "detailList";
+        return "members/detailList";
     }
 
     // 회원 정보 수정페이지 출력 요청
@@ -76,7 +76,7 @@ public class MemberController {
         String myEmail = (String) httpSession.getAttribute("loginEmail"); // 담을 때는 set, 가져올 때는 get
         MemberDto memberDto = memberService.updateForm(myEmail);
         model.addAttribute("updateMember", memberDto);
-        return "update";
+        return "members/update";
     }
 
     @PostMapping("/member/update")

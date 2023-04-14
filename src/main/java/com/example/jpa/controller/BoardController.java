@@ -5,10 +5,7 @@ import com.example.jpa.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class BoardController {
     // 글 작성
     @GetMapping("/write")
     public String writeForm() {
-        return "write";
+        return "boards/write";
     }
 
     @PostMapping("/write")
@@ -37,7 +34,7 @@ public class BoardController {
     public String findAll(Model model) { // 전체 목록을 DB로부터 받아와야 할 때는 model 객체를 사용함
         List<BoardDto> boardDtoList = boardService.findAll(); // 여러개를 가져올 때는 List 사용
         model.addAttribute("boardList", boardDtoList); // 가져온 객체를 model에 담음
-        return "boardList";
+        return "boards/list";
         // service에서 boardDtoList에 리턴해온 값을 model에 담아 boardList.html에 보여준다.
     }
 }
