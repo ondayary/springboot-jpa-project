@@ -6,8 +6,10 @@ import com.example.jpa.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 // DTO -> Entity (Entity Class)
 // Entity -> DTO (DTO Class)
@@ -39,5 +41,23 @@ public class BoardService {
             // 반복문으로 접근하는 Entity 객체(boardEntity)를 Dto로 변환하고 변환된 객체를 boardDtoList에 넣는다.
         }
         return boardDtoList;
+    }
+
+    // 조회수 증가
+    @Transactional // jpa에서 제공해주는 메서드가 아닌 별도로 추가된 메서드를 쓰는 경우에는 트랜잭션을 붙여줌(영속성 컨텍스트 처리)
+    public void updateHits(Long id) {
+        // 조회수 같이 특수한 쿼리들은 별도의 메서드를 정의할 필요가 있음
+        boardRepository.updateHits(id);
+    }
+
+    public BoardDto findById(Long id) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        if (optionalBoardEntity.isPresent()) {
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDto boardDto = BoardDto.toBoardDto(boardEntity);
+            return boardDto;
+        } else {
+            return null;
+        }
     }
 }
