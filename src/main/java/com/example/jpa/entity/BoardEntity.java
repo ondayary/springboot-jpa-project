@@ -34,7 +34,7 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
     public static BoardEntity toBoardEntity(BoardDto boardDto) {
         BoardEntity boardEntity = new BoardEntity();
         // dto에 담긴 값들을 entity 객체로 옮겨담는 작업
-        boardEntity.setBoardWriter(boardEntity.getBoardWriter());
+        boardEntity.setBoardWriter(boardDto.getBoardWriter());
         boardEntity.setBoardPass(boardDto.getBoardPass());
         boardEntity.setBoardTitle(boardDto.getBoardTitle());
         boardEntity.setBoardContents(boardDto.getBoardContents());

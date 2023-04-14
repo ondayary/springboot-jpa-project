@@ -11,17 +11,23 @@
     <a href="/member/login">로그인</a>
     <a href="/member">회원목록</a>
 
-    <button onclick="write()">글작성</button>
+    <br>
+
+    <button onclick="writeReq()">글작성</button>
     <!--
          <a href="/board/write">글작성</a> 와 같은 곳으로 이동
     -->
+    <button onclick="boardListReq()">글목록</button>
 </body>
 <script>
     // 기본 함수 정의 방식
     // function write() {
     // }
-    const write = () => {
+    const writeReq = () => {
         location.href = "/board/write";
+    }
+    const boardListReq = () => {
+        location.href = "/board/list";
     }
 </script>
 </html>
