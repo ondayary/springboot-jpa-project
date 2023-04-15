@@ -34,11 +34,17 @@
         </tr>
     </table>
     <button onclick="listReq()">목록</button>
+    <button onclick="updateReq()">수정</button>
 </body>
 <script th:inline="javascript">
     const listReq = () => {
         console.log("목록 요청");
         location.href = "/board/list";
+    }
+    const updateReq = () => {
+        console.log("수정 요청");
+        const id = [[${board.id}]];
+        location.href = "/board/update/" + id;
     }
 </script>
 </html>

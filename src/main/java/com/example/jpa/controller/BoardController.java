@@ -49,4 +49,18 @@ public class BoardController {
         // model 객체를 board라는 파라미터에 담아서 detailList.html로 보낸다.
         return "boards/detailList";
     }
+
+    // 게시글 수정
+    /*
+        1. 상세화면에서 수정 버튼 클릭
+        2. 서버에서 해당 게시글의 정보를 가지고 수정 화면 출력
+        3. 수정된 제목, 내용을 입력 받아 서버로 요청
+        4. 수정 처리
+     */
+    @GetMapping("/update/{id}")
+    public String updateForm(@PathVariable Long id, Model model) {
+        BoardDto boardDto = boardService.findById(id);
+        model.addAttribute("boardUpdate", boardDto);
+        return "boards/update";
+    }
 }
