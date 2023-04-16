@@ -73,4 +73,9 @@ public class BoardController {
 //        return "redirect:/board" + boardDto.getId(); // 조회수 증가가 될 우려
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        boardService.delete(id);
+        return "redirect:/board/list";
+    }
 }
