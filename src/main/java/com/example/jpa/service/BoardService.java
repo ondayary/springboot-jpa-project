@@ -60,4 +60,15 @@ public class BoardService {
             return null;
         }
     }
+
+    public BoardDto update(BoardDto boardDto) {
+        // repository에서 update를 위한 메서드는 제공되고 있지 않음
+        // save 메서드를 가지고 insert, update 두 가지를 이용하는데
+        // 구분하는 방법은 id 값이 있냐 없냐 id 값의 유무임
+
+        // entity로 변환하는 과정 필요
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDto);
+        boardRepository.save(boardEntity);
+        return findById(boardDto.getId());
+    }
 }

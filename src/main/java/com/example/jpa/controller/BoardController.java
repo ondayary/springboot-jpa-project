@@ -63,4 +63,14 @@ public class BoardController {
         model.addAttribute("boardUpdate", boardDto);
         return "boards/update";
     }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDto boardDto, Model model) {
+        BoardDto board = boardService.update(boardDto);
+        model.addAttribute("board", board);
+        // service에서 수정이 끝난 내용이 board에 반영이 되고 그 객체를 가지고 model에 넣어 detailList로 간다.
+        return "boards/detailList";
+//        return "redirect:/board" + boardDto.getId(); // 조회수 증가가 될 우려
+    }
+
 }
