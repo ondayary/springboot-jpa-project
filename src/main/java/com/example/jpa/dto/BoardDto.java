@@ -20,6 +20,15 @@ public class BoardDto { // DTO(Data Transfer Object)
     private LocalDateTime boardCreatedTime; // 작성시간
     private LocalDateTime boardUpdatedTime; // 수정시간
 
+    // 페이징 처리로 인해 페이지의 원하는 목록들만 보여주는 생성자 추가
+    public BoardDto(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+        this.id = id;
+        this.boardWriter = boardWriter;
+        this.boardTitle = boardTitle;
+        this.boardHits = boardHits;
+        this.boardCreatedTime = boardCreatedTime;
+    }
+
     // Entity -> DTO
     public static BoardDto toBoardDto(BoardEntity boardEntity) {
         BoardDto boardDto = new BoardDto();
