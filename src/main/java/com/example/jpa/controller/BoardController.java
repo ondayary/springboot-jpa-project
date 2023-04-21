@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,7 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(@ModelAttribute BoardDto boardDto) { // @RequestParam으로도 가능하지만 ModelAttribute로 진행
+    public String write(@ModelAttribute BoardDto boardDto) throws IOException { // @RequestParam으로도 가능하지만 ModelAttribute로 진행
         System.out.println("boardDto = " + boardDto); // soutp + tab
         boardService.write(boardDto);
         return "index";

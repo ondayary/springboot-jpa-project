@@ -9,8 +9,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +27,30 @@ public class BoardService {
 
     private final BoardRepository boardRepository; // 생성자 주입
 
-    public void write(BoardDto boardDto) {
-        BoardEntity boardEntity = BoardEntity.toBoardEntity(boardDto);
-        boardRepository.save(boardEntity); // insert query가 나가게 됨
-        // save(): 매개변수를 entity 클래스로, return할 때도 entity로 주게 되어있음
+    public void write(BoardDto boardDto) throws IOException {
+        // 파일 첨부 여부에 따라 로직 분리
+        if (boardDto.getBoardFile().isEmpty()) {
+            // 첨부 파일 없음
+            BoardEntity boardEntity = BoardEntity.toBoardEntity(boardDto);
+            boardRepository.save(boardEntity); // insert query가 나가게 됨
+            // save(): 매개변수를 entity 클래스로, return할 때도 entity로 주게 되어있음
+        } else {
+            // 첨부 파일 있음
+            /*
+                1. Dto에 담긴 파일을 꺼냄
+                2. 파일의 이름을 가져옴
+                3. 서버 저장용 이름을 추가
+                4. 저장 경로 설정
+                5. 해당 경로에 파일을 저장
+                6. board_table에 해당 데이터 save 처리
+                7. board_file_table에 해당 데이터 save 처리
+            */
+            MultipartFile boardFile = boardDto.getBoardFile(); // 1
+            String originalFileName = boardFile.getOriginalFilename(); // 2
+            String storedFilName = System.currentTimeMillis() + "_" + originalFileName; // 3
+            String savePath = "/Users/daon/img/" + storedFilName; // 4 (mac기준)
+            boardFile.transferTo(new File(savePath)); // 5
+        }
     }
 
     public List<BoardDto> findAll() {
