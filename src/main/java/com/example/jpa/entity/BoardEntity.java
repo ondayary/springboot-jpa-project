@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +34,11 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
 
     @Column
     private int fileAttached; // 첨부 파일 존재 여부 1 or 0
+
+    // 참조 관계에서의 부모 입장
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+
 
     // DTO -> Entity
     public static BoardEntity toBoardEntity(BoardDto boardDto) {
