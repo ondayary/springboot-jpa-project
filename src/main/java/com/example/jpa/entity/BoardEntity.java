@@ -64,4 +64,16 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
         boardEntity.setBoardHits(boardDto.getBoardHits());
         return boardEntity;
     }
+
+    // 첨부 파일을 DB에 저장할 때 필요한 Dto -> Entity
+    public static BoardEntity toSaveFileEntity(BoardDto boardDto) {
+        BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setBoardWriter(boardDto.getBoardWriter());
+        boardEntity.setBoardPass(boardDto.getBoardPass());
+        boardEntity.setBoardTitle(boardDto.getBoardTitle());
+        boardEntity.setBoardContents(boardDto.getBoardContents());
+        boardEntity.setBoardHits(0);
+        boardEntity.setFileAttached(1); // 파일 있음
+        return boardEntity;
+    }
 }
