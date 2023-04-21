@@ -30,6 +30,9 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
     @Column
     private int boardHits;
 
+    @Column
+    private int fileAttached; // 첨부 파일 존재 여부 1 or 0
+
     // DTO -> Entity
     public static BoardEntity toBoardEntity(BoardDto boardDto) {
         BoardEntity boardEntity = new BoardEntity();
@@ -39,6 +42,7 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
         boardEntity.setBoardTitle(boardDto.getBoardTitle());
         boardEntity.setBoardContents(boardDto.getBoardContents());
         boardEntity.setBoardHits(0);
+        boardEntity.setFileAttached(0); // 파일 없음
         return boardEntity;
     }
 
