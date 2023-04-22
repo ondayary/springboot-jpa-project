@@ -1,19 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www/thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>update</title>
+    <meta charset="UTF-8">
+    <title>update</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm2rQO2iX+5X7hD0oNiqLwWO"
+          crossorigin="anonymous">
+    <style>
+        /* 기존 스타일은 삭제합니다. */
+        /* body 스타일 */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* 화면 세로 길이를 100vh로 설정합니다. */
+        }
+
+        /* form 태그 스타일 */
+        form {
+            width: 100%;
+            max-width: 400px; /* 폼의 최대 너비를 400px으로 설정합니다. */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+
+        /* h1 스타일 */
+        h1 {
+            text-align: center; /* h1 태그를 가운데 정렬합니다. */
+        }
+
+        /* form-group 스타일 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        /* label 스타일 */
+        label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* input 스타일 */
+        input[type="text"],
+        input[type="password"] {
+            border-radius: 0;
+            border: 1px solid #ced4da;
+            font-size: 1.2rem;
+            padding: 0.5rem 0.75rem;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        /* 버튼 스타일 */
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            width: 100%; /* 버튼의 최대 너비를 100%로 설정합니다. */
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+
 </head>
 <body>
-    <!-- 사용자가 입력한 값을 보여줘야하는 것도 맞고
-         DB에서 가져온 값으로 채워야 하는 것도 맞음 (th:value)-->
-    <form action="/member/update" method="post">
-        <input type="hidden" th:value="${updateMember.id}" name="id"><br>
-        이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail" readonly><br>
-        비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword"><br>
-        이름: <input type="text" th:value="${updateMember.memberName}" name="memberName"><br>
-        <input type="submit" value="정보수정">
-        <!-- name은 반드시 있어야 하고 update 필드와 동일해야 함 -->
-    </form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center">Update Member Information</h1>
+                <!-- 사용자가 입력한 값을 보여줘야하는 것도 맞고
+                     DB에서 가져온 값으로 채워야 하는 것도 맞음 (th:value)-->
+                <form action="/member/update" method="post">
+                    <input type="hidden" th:value="${updateMember.id}" name="id"><br>
+                    <!-- name은 반드시 있어야 하고 update 필드와 동일해야 함 -->
+                    <div class="form-group">
+                        <label for="memberEmail">Email:</label>
+                        <input type="text" class="form-control" id="memberEmail" th:value="${updateMember.memberEmail}" name="memberEmail" readonly style="width: 370px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="memberPassword">Password:</label>
+                        <input type="text" class="form-control" id="memberPassword" th:value="${updateMember.memberPassword}" name="memberPassword" style="width: 370px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="memberName">Name:</label>
+                        <input type="text" class="form-control" id="memberName" th:value="${updateMember.memberName}" name="memberName" style="width: 370px;">
+                    </div>
+                    <button type="submit" class="btn btn-success">Update Information</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
