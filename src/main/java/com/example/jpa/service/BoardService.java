@@ -65,6 +65,7 @@ public class BoardService {
         }
     }
 
+    @Transactional // toBoardDto에서 BoardFileEntity를 접근하고 있기 때문에 붙여줘야 함
     public List<BoardDto> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
         // findAll하게 되면 대부분 Entity로 가져온다. 여기서는 Entity가 하나가 아니라 List형태의 Entity가 넘어 온다.
@@ -89,6 +90,7 @@ public class BoardService {
         boardRepository.updateHits(id);
     }
 
+    @Transactional // toBoardDto에서 BoardFileEntity를 접근하고 있기 때문에 붙여줘야 함
     public BoardDto findById(Long id) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if (optionalBoardEntity.isPresent()) {
