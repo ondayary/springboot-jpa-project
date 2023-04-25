@@ -12,7 +12,9 @@
         pass:     <input type="text" name="boardPass"><br>
         title:    <input type="text" name="boardTitle"><br>
         contents: <textarea name="boardContents" cols="30" rows="10"></textarea><br>
-        file:     <input type="file" name="boardFile"><br>
+        file:     <input type="file" name="boardFile" multiple><br>
+                  <!-- multiple: 여러개 파일을 첨부할 수 있는 속성
+                       boardFile이 여러개가 생긴다는 것. 중간에서 boardDto에서 boardFile을 받게 됨-->
         <input type="submit" value="글작성">
     </form>
 </body>

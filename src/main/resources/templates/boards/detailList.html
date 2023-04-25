@@ -34,7 +34,12 @@
         </tr>
         <tr th:if="${board.fileAttached == 1}">
             <th>image</th>
-            <td><img th:src="@{|/upload/${board.storedFileName}|}" alt=""></td><!-- 저장된 파일의 이름을 Dto에서 가져옴-->
+            <td th:each="fileName: ${board.storedFileName}">
+                <img th:src="@{|/upload/${fileName}|}" alt="">
+            </td>
+            <!-- storedFileName이 여러개이기 때문에 th:each를 통해 반복문을 돌렸고
+                 반복문 변수로 fileName으로 지정해주고 그 fileName으로 storedFileName에 접근해서
+                 {}안에 fileName이 하나씩 쓰여지게끔 담겨 있는 file이 모두 보여지게끔 처리 -->
         </tr>
     </table>
     <button onclick="listReq()">목록</button>

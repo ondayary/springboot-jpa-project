@@ -48,20 +48,23 @@ public class BoardService {
                 6. board_table에 해당 데이터 save 처리
                 7. board_file_table에 해당 데이터 save 처리
             */
-            MultipartFile boardFile = boardDto.getBoardFile(); // 1
-            String originalFileName = boardFile.getOriginalFilename(); // 2
-            String storedFilName = System.currentTimeMillis() + "_" + originalFileName; // 3
-            String savePath = "/Users/daon/img/" + storedFilName; // 4 (mac기준)
-            boardFile.transferTo(new File(savePath)); // 5
-
-            // DB에 저장하는 작업
+            // DB에 저장하는 작업(부모데이터가 먼저 저장이 되어야 함)
             BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDto);
             Long savedId = boardRepository.save(boardEntity).getId(); // Entity를 저장하고 나서 id값을 얻어옴
-            BoardEntity board = boardRepository.findById(savedId).get(); // DB에 저장하고 난 후의 id값을 얻어옴
+            BoardEntity board = boardRepository.findById(savedId).get(); // DB에 저장하고 난 후의 id값을 얻어옴. 부모객체
 
-            // BoardFileEntity로 변환하기 위한 작업
-            BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFileName, storedFilName);
-            boardFileRepository.save(boardFileEntity);
+            // 파일이 여러개인 상황이라서 반복문으로 접근해야 함
+            for (MultipartFile boardFile : boardDto.getBoardFile()) {
+//                MultipartFile boardFile = boardDto.getBoardFile(); // 1
+                String originalFileName = boardFile.getOriginalFilename(); // 2
+                String storedFilName = System.currentTimeMillis() + "_" + originalFileName; // 3
+                String savePath = "/Users/daon/img/" + storedFilName; // 4 (mac기준)
+                boardFile.transferTo(new File(savePath)); // 5
+
+                // BoardFileEntity로 변환하기 위한 작업
+                BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFileName, storedFilName);
+                boardFileRepository.save(boardFileEntity);
+            }
         }
     }
 
