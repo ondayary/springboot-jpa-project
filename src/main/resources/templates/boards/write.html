@@ -3,19 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>write</title>
+    <!-- 부트스트랩 CDN 링크 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* form 요소의 너비와 마진 설정 */
+        form {
+            width: 60%;
+            margin: 50px auto;
+        }
+
+        /* input, textarea 요소의 너비 설정 */
+        input[type="text"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+        }
+
+        /* submit 버튼 스타일링 */
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #04AA6D;
+            border: none;
+            border-radius: 4px;
+        }
+
+        /* submit 버튼 호버 스타일링 */
+        input[type="submit"]:hover {
+            background-color: #048C5D;
+            cursor: pointer;
+        }
+
+        .sub-btn {
+            text-align: right;
+        }
+
+        .h1 {
+            margin-top: 100px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+    <div class="h1">
+        <h1>a Writing Place</h1>
+    </div>
     <!-- action 속성: 목적지(서버주소), method 속성: http request method(get, post) -->
     <form action="/board/write" method="post" enctype="multipart/form-data">
-                  <!-- name이 반드시 있어야 input에 입력한 값이 서버로 넘어간다 -->
-        writer:   <input type="text" name="boardWriter"><br>
-        pass:     <input type="text" name="boardPass"><br>
-        title:    <input type="text" name="boardTitle"><br>
-        contents: <textarea name="boardContents" cols="30" rows="10"></textarea><br>
-        file:     <input type="file" name="boardFile" multiple><br>
-                  <!-- multiple: 여러개 파일을 첨부할 수 있는 속성
-                       boardFile이 여러개가 생긴다는 것. 중간에서 boardDto에서 boardFile을 받게 됨-->
-        <input type="submit" value="글작성">
+        <!-- name이 반드시 있어야 input에 입력한 값이 서버로 넘어간다 -->
+        <div class="form-group">
+            <label for="boardWriter">작성자</label>
+            <input type="text" class="form-control" id="boardWriter" name="boardWriter">
+        </div>
+        <div class="form-group">
+            <label for="boardPass">비밀번호</label>
+            <input type="password" class="form-control" id="boardPass" name="boardPass">
+        </div>
+        <div class="form-group">
+            <label for="boardTitle">제목</label>
+            <input type="text" class="form-control" id="boardTitle" name="boardTitle">
+        </div>
+        <div class="form-group">
+            <label for="boardContents">내용</label>
+            <textarea class="form-control" id="boardContents" name="boardContents" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="boardFile">파일 첨부</label>
+            <input type="file" class="form-control-file" id="boardFile" name="boardFile" multiple>
+            <!-- multiple: 여러개 파일을 첨부할 수 있는 속성
+                 boardFile이 여러개가 생긴다는 것. 중간에서 boardDto에서 boardFile을 받게 됨-->
+        </div>
+        <div class="sub-btn">
+            <input type="submit" class="btn btn-primary" value="글 작성">
+        </div>
     </form>
+
+    <!-- 부트스트랩 js CDN 링크 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
