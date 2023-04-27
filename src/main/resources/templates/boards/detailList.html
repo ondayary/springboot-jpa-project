@@ -63,6 +63,25 @@
         const contents = document.getElementById("commentContents").value;
         console.log("작성자: ", writer);
         console.log("내용: ", contents);
+        const id = [[${board.id}]]; // 게시글 번호
+
+        // 작성된 값을 controller로 보내기 위해서 ajax 사용
+        $.ajax({
+            // 요청방식: post, 요청주소: comment/write, 요청데이터: 작성자, 작성내, 게시글번호(어떤 게시글에 달린 댓글인지 판단)
+            type: "post",
+            url: "/comment/write",
+            data: {
+                "commentWriter": writer,
+                "commentContents": contents,
+                "boardId": id
+            },
+            success: function (res) {
+                console.log("요청 성공", res);
+            },
+            error: function(err) {
+                console.log("요청 실패", err);
+            }
+        });
     }
     const listReq = () => {
         console.log("목록 요청");
