@@ -2,6 +2,8 @@
   <h3>SpringBoot + mysql + Spring Data JPA를 활용한 프로젝트</h3>
 </div>
 
+<br>
+
 ## 개발환경
 프로젝트 개발 환경은 다음과 같습니다.
 - IDE: IntelliJ IDEA Ultimate
@@ -10,6 +12,8 @@
 - mysql
 - Spring Data JPA
 - Thymeleaf
+
+<br>
 
 ## 회원 주요기능
 1. 회원가입(/member/join)
@@ -20,6 +24,8 @@
 6. 회원삭제(/member/delete/{id}) 
 7. 로그아웃(/member/logout)
 8. 이메일(아이디) 중복체크(/member/email-check)
+
+<br>
 
 ## 게시판 주요기능
 1. 글쓰기(/board/write)
