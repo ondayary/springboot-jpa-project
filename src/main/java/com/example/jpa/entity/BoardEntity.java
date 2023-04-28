@@ -39,6 +39,10 @@ public class BoardEntity extends BaseEntity { // DB의 테이블 역할을 하�
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
 
+    // 게시글이 지워진다면 관련 댓글도 지워짐
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
 
     // DTO -> Entity
     public static BoardEntity toBoardEntity(BoardDto boardDto) {
