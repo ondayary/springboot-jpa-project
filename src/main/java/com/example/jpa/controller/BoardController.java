@@ -1,7 +1,9 @@
 package com.example.jpa.controller;
 
 import com.example.jpa.dto.BoardDto;
+import com.example.jpa.dto.CommentDto;
 import com.example.jpa.service.BoardService;
+import com.example.jpa.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService; // DI
+    private final CommentService commentService;
 
     // 게시글 작성
     @GetMapping("/write")
@@ -50,6 +53,9 @@ public class BoardController {
         // 2. 게시글 데이터를 가져와서 detailList.html에 출력
         boardService.updateHits(id);
         BoardDto boardDto = boardService.findById(id);
+        /* 댓글 목록 가져오기 */
+        List<CommentDto> commentDtoList = commentService.findAll(id);
+        model.addAttribute("commentList", commentDtoList);
         model.addAttribute("board", boardDto);
         // model 객체를 board라는 파라미터에 담아서 detailList.html로 보낸다.
         model.addAttribute("page", pageable.getPageNumber());
